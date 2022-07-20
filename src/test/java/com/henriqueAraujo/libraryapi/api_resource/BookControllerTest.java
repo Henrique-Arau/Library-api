@@ -2,6 +2,7 @@ package com.henriqueAraujo.libraryapi.api_resource;
 
 
 
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.henriqueAraujo.libraryapi.apiDTO.BookDTO;
 import com.henriqueAraujo.libraryapi.model.entity.Book;
@@ -23,6 +24,7 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 
+import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -69,7 +71,20 @@ public class BookControllerTest {
 
  @Test
  @DisplayName("Deve lançar erro de validação quando não houver dados suficientes para criação do livro")
- public void createInvalidBookTest() {
+ public void createInvalidBookTest() throws Exception {
+
+     String json = new ObjectMapper().writeValueAsString(new BookDTO());
+
+     MockHttpServletRequestBuilder request = MockMvcRequestBuilders
+             .post(BOOK_API)
+             .contentType(MediaType.APPLICATION_JSON)
+             .accept(MediaType.APPLICATION_JSON)
+             .content(json);
+
+     mvc
+             .perform(request)
+             .andExpect(status().isBadRequest())
+             .andExpect(jsonPath("errors", hasSize(3)));
 
  }
 
