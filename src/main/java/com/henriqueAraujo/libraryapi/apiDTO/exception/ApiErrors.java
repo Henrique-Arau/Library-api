@@ -1,8 +1,10 @@
 package com.henriqueAraujo.libraryapi.apiDTO.exception;
 
+import com.henriqueAraujo.libraryapi.exception.BusinesException;
 import org.springframework.validation.BindingResult;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ApiErrors {
@@ -13,6 +15,10 @@ public class ApiErrors {
         this.errors = new ArrayList<>();
         bindingResult.getAllErrors().forEach( error ->
                 this.errors.add(error.getDefaultMessage()) );
+    }
+
+    public ApiErrors(BusinesException ex) {
+        this.errors = Arrays.asList(ex.getMessage());
     }
 
     public List<String> getErrors() {

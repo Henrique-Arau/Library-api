@@ -1,8 +1,10 @@
 package com.henriqueAraujo.libraryapi.service;
 
+import com.henriqueAraujo.libraryapi.exception.BusinesException;
 import com.henriqueAraujo.libraryapi.model.entity.Book;
-import com.henriqueAraujo.libraryapi.model.repository.BookRepository;
+import com.henriqueAraujo.libraryapi.service.repository.BookRepository;
 import com.henriqueAraujo.libraryapi.service.impl.BookServiceImpl;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -33,7 +35,7 @@ public class BookServiceTest {
     public void saveBookTest() {
 
         //Cenário
-        Book book = Book.builder().isbn("123").author("Fulano").title("As aventuras").build();
+        Book book = createValidBook();
         Mockito.when( repository.save(book) ).thenReturn(Book.builder()
                 .id(1L)
                 .isbn("123")
@@ -50,6 +52,30 @@ public class BookServiceTest {
         assertThat(savedBook.getTitle()).isEqualTo("As aventuras");
         assertThat(savedBook.getAuthor()).isEqualTo("Fulano");
 
+
+    }
+
+    private Book createValidBook() {
+        return Book.builder().isbn("123").author("Fulano").title("As aventuras").build();
+    }
+
+
+    @Test
+    @DisplayName("Deve lançar erro de negocio ao tentar salvar um livro com isbn duplicado")
+    public void shouldNotSaveABookWithDuplicatedISBN() {
+        //cenario
+        Book book = createValidBook();
+        Mockito.when( repository.existsByIsbn(Mockito.anyString())).thenReturn(true);
+
+        //execucao
+        Throwable exception = Assertions.catchThrowable(() -> service.save(book) );
+
+        //verificaçoes
+        assertThat(exception)
+                .isInstanceOf(BusinesException.class)
+                .hasMessage("Isbn já cadastrado.");
+
+        Mockito.verify(repository, Mockito.never()).save(book);
 
     }
 }
