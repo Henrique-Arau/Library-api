@@ -14,7 +14,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.BDDMockito;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -189,6 +188,61 @@ public class BookControllerTest {
                 .andExpect( status().isNotFound());
 
     }
+
+    @Test
+    @DisplayName("Deve atualizar um livro")
+    public void updateBookTest() throws Exception {
+     Long id = 1L;
+     String json = new ObjectMapper().writeValueAsString(createNewBook());
+
+     Book updatingBook = Book.builder()
+             .id(1L)
+             .title("some title")
+             .author("some author")
+             .isbn("123").build();
+     BDDMockito.given(service.getById(anyLong()))
+             .willReturn(Optional.of(updatingBook));
+     Book updatedBook =  Book.builder().id(id).author("Arthur").title("As aventuras").isbn("001").build();
+     BDDMockito.given(service.update(updatingBook)).willReturn(updatedBook);
+
+     MockHttpServletRequestBuilder request = MockMvcRequestBuilders
+             .put(BOOK_API.concat("/" + 1))
+             .content(json)
+             .accept(MediaType.APPLICATION_JSON)
+             .contentType(MediaType.APPLICATION_JSON);
+
+     mvc.perform( request )
+             .andExpect( status().isOk())
+             .andExpect( jsonPath("id").value(id))
+             .andExpect( jsonPath("title").value(createNewBook().getTitle()))
+             .andExpect( jsonPath("author").value(createNewBook().getAuthor()))
+             .andExpect( jsonPath("isbn").value(createNewBook().getIsbn()));
+
+
+    }
+
+    @Test
+    @DisplayName("Deve retornar 404 ao tentar atualizar um livro inexistente")
+    public void updateInexistenteBookTest() throws Exception {
+
+        String json = new ObjectMapper().writeValueAsString(createNewBook());
+
+        BDDMockito.given(service.getById(Mockito.anyLong()))
+                .willReturn(Optional.empty());
+
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders
+                .put(BOOK_API.concat("/" + 1))
+                .content(json)
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON);
+
+        mvc.perform( request )
+                .andExpect( status().isNotFound());
+
+
+    }
+
+
 
  private BookDTO createNewBook() {
      return BookDTO.builder().author("Arthur").title("As aventuras").isbn("001").build();
