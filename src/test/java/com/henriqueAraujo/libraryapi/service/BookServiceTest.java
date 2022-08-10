@@ -104,7 +104,7 @@ public class BookServiceTest {
     }
 
     @Test
-    @DisplayName("Deve retornar vazio ao obter um livro por id quando ele não existe na basa")
+    @DisplayName("Deve retornar vazio ao obter um livro por id quando ele não existe na base")
     public void bookNotFoundByIdTest() {
         //Cenario
         Long id = 1L;
@@ -118,4 +118,71 @@ public class BookServiceTest {
 
 
     }
+
+    @Test
+    @DisplayName("Deve deletar um livro.")
+    public void deleteBookTest() {
+        //cenário
+        Book book = Book.builder().id(1L).build();
+
+
+        //execução
+        org.junit.jupiter.api.Assertions.assertDoesNotThrow( () -> service.delete(book) );
+
+        //verificação
+        Mockito.verify(repository, Mockito.times(1)).delete(book);
+    }
+
+    @Test
+    @DisplayName("Deve ocorrer erro ao tentar deletar um livro inexistente.")
+    public void deleteInvalidBookTest() {
+        //cenario
+        Book book = new Book();
+
+        //execução
+        org.junit.jupiter.api.Assertions.assertThrows(IllegalArgumentException.class, () -> service.delete(book));
+
+        //verificação
+        Mockito.verify(repository, Mockito.never() ).delete(book);
+    }
+
+    @Test
+    @DisplayName("Deve ocorrer erro ao tentar atualizar um livro inexistente.")
+    public void updateInvalidBookTest() {
+        //cenario
+        Book book = new Book();
+
+        //execução
+        org.junit.jupiter.api.Assertions.assertThrows(IllegalArgumentException.class, () -> service.update(book));
+
+        //verificação
+        Mockito.verify(repository, Mockito.never() ).save(book);
+    }
+
+    @Test
+    @DisplayName("Deve atualizar um livro.")
+    public void updateBookTest() {
+        //cenário
+        long id = 1L;
+
+        //livro a atualizar
+        Book updatingBook  = Book.builder().id(id).build();
+
+        //simulação
+        Book updatedBook = createValidBook();
+        updatedBook.setId(id);
+
+        Mockito.when(repository.save(updatingBook)).thenReturn(updatedBook);
+
+        //execução
+        Book book = service.update(updatingBook );
+
+        //verificações
+        assertThat(book.getId()).isEqualTo(updatedBook.getId());
+        assertThat(book.getTitle()).isEqualTo(updatedBook.getTitle());
+        assertThat(book.getIsbn()).isEqualTo(updatedBook.getIsbn());
+        assertThat(book.getAuthor()).isEqualTo(updatedBook.getAuthor());
+
+    }
+
 }
