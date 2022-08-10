@@ -101,6 +101,5 @@ public class BookRepositoryTest {
         assertThat(deletedBook).isNull();
 
 
-
     }
 }
