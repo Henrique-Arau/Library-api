@@ -1,4 +1,4 @@
-package com.henriqueAraujo.libraryapi.apiDTO;
+package com.henriqueAraujo.libraryapi.api.dto;
 
 
 

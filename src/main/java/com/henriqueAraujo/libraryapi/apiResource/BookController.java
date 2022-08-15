@@ -1,8 +1,8 @@
 package com.henriqueAraujo.libraryapi.apiResource;
 
 
-import com.henriqueAraujo.libraryapi.apiDTO.BookDTO;
-import com.henriqueAraujo.libraryapi.apiDTO.exception.ApiErrors;
+import com.henriqueAraujo.libraryapi.api.dto.BookDTO;
+import com.henriqueAraujo.libraryapi.api.exception.ApiErrors;
 import com.henriqueAraujo.libraryapi.exception.BusinesException;
 import com.henriqueAraujo.libraryapi.model.entity.Book;
 import com.henriqueAraujo.libraryapi.service.BookService;
@@ -85,18 +85,5 @@ public class BookController {
 
 
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ApiErrors handleValidationExceptions(MethodArgumentNotValidException ex) {
-        BindingResult bindingResult = ex.getBindingResult();
-        return new ApiErrors(bindingResult);
-
-    }
-
-    @ExceptionHandler(BusinesException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ApiErrors handleBusinessException(BusinesException ex) {
-         return new ApiErrors(ex);
-    }
 
 }

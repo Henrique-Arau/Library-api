@@ -4,7 +4,8 @@ package com.henriqueAraujo.libraryapi.api_resource;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.henriqueAraujo.libraryapi.apiDTO.BookDTO;
+import com.henriqueAraujo.libraryapi.api.dto.BookDTO;
+import com.henriqueAraujo.libraryapi.apiResource.BookController;
 import com.henriqueAraujo.libraryapi.exception.BusinesException;
 import com.henriqueAraujo.libraryapi.model.entity.Book;
 import com.henriqueAraujo.libraryapi.service.BookService;
@@ -39,7 +40,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @ExtendWith(SpringExtension.class)
 @ActiveProfiles("test")
-@WebMvcTest
+@WebMvcTest(controllers = BookController.class)
 @AutoConfigureMockMvc
 public class BookControllerTest {
 
