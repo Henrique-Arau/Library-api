@@ -39,7 +39,6 @@ public class LoanControleTest {
 
      static final String LOAN_API = "/api/loans";
 
-
      @Autowired
      MockMvc mvc;
 

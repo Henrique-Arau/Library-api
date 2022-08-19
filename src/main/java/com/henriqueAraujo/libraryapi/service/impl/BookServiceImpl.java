@@ -2,7 +2,7 @@ package com.henriqueAraujo.libraryapi.service.impl;
 
 import com.henriqueAraujo.libraryapi.exception.BusinesException;
 import com.henriqueAraujo.libraryapi.model.entity.Book;
-import com.henriqueAraujo.libraryapi.service.repository.BookRepository;
+import com.henriqueAraujo.libraryapi.model.repository.BookRepository;
 import com.henriqueAraujo.libraryapi.service.BookService;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
@@ -66,7 +66,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Optional<Book> getBookByIsbn(String isbn) {
-        return null;
+        return repository.findByIsbn(isbn);
     }
 
 

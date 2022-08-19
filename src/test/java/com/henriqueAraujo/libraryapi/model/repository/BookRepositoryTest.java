@@ -1,7 +1,6 @@
 package com.henriqueAraujo.libraryapi.model.repository;
 
 import com.henriqueAraujo.libraryapi.model.entity.Book;
-import com.henriqueAraujo.libraryapi.service.repository.BookRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

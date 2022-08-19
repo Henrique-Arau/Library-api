@@ -2,8 +2,6 @@ package com.henriqueAraujo.libraryapi.apiResource;
 
 
 import com.henriqueAraujo.libraryapi.api.dto.BookDTO;
-import com.henriqueAraujo.libraryapi.api.exception.ApiErrors;
-import com.henriqueAraujo.libraryapi.exception.BusinesException;
 import com.henriqueAraujo.libraryapi.model.entity.Book;
 import com.henriqueAraujo.libraryapi.service.BookService;
 import org.modelmapper.ModelMapper;
@@ -11,8 +9,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 

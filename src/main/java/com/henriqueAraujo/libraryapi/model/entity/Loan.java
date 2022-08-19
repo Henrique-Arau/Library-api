@@ -1,6 +1,7 @@
 package com.henriqueAraujo.libraryapi.model.entity;
 
 
+import com.henriqueAraujo.libraryapi.model.entity.Book;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
