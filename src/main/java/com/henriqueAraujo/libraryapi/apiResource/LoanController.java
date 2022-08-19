@@ -2,6 +2,7 @@ package com.henriqueAraujo.libraryapi.apiResource;
 
 
 import com.henriqueAraujo.libraryapi.api.dto.LoanDTO;
+import com.henriqueAraujo.libraryapi.api.dto.ReturnedLoanDTO;
 import com.henriqueAraujo.libraryapi.model.entity.Book;
 import com.henriqueAraujo.libraryapi.model.entity.Loan;
 import com.henriqueAraujo.libraryapi.service.BookService;
@@ -40,6 +41,15 @@ public class LoanController {
 
         return entity.getId();
 
+    }
+
+    @PatchMapping("{id}")
+    public void returnBook( @PathVariable Long id, @RequestBody ReturnedLoanDTO dto){
+
+        Loan loan = service.getById(id).orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND) );
+        loan.setReturned(dto.getReturned());
+
+        service.update(loan);
     }
 
 }
