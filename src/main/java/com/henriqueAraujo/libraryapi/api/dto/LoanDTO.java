@@ -9,6 +9,8 @@ import lombok.*;
 @AllArgsConstructor
 public class LoanDTO {
 
+    private Long id;
     private String isbn;
     private String customer;
+    private BookDTO book;
 }

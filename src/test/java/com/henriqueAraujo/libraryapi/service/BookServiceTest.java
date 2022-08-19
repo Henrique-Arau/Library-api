@@ -194,7 +194,7 @@ public class BookServiceTest {
     }
 
     @Test
-    @DisplayName("Deve filtrar pelas propriedades")
+    @DisplayName("Deve filtrar livros pelas propriedades")
     public void findBookTest() {
         //cenário
         Book book = createValidBook();
