@@ -1,6 +1,6 @@
 package com.henriqueAraujo.libraryapi.api.exception;
 
-import com.henriqueAraujo.libraryapi.exception.BusinesException;
+import com.henriqueAraujo.libraryapi.exception.BusinessException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -18,7 +18,7 @@ public class ApiErrors {
                 this.errors.add(error.getDefaultMessage()) );
     }
 
-    public ApiErrors(BusinesException ex) {
+    public ApiErrors(BusinessException ex) {
         this.errors = Arrays.asList(ex.getMessage());
     }
 

@@ -2,7 +2,7 @@ package com.henriqueAraujo.libraryapi.service;
 
 
 import com.henriqueAraujo.libraryapi.api.dto.LoanFilterDTO;
-import com.henriqueAraujo.libraryapi.exception.BusinesException;
+import com.henriqueAraujo.libraryapi.exception.BusinessException;
 import com.henriqueAraujo.libraryapi.model.entity.Book;
 import com.henriqueAraujo.libraryapi.model.entity.Loan;
 import com.henriqueAraujo.libraryapi.model.repository.LoanRepository;
@@ -14,7 +14,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -97,7 +96,7 @@ public class LoanServiceTest {
 
 
         assertThat(exception)
-                .isInstanceOf(BusinesException.class)
+                .isInstanceOf(BusinessException.class)
                 .hasMessage("Book already loaned");
 
         verify(repository, never()).save(savingLoan);

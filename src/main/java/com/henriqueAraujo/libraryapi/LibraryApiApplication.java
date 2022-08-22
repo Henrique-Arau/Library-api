@@ -22,6 +22,10 @@ public class LibraryApiApplication {
 	@Autowired
 	private EmailService emailService;
 
+	public LibraryApiApplication(EmailService emailService) {
+		this.emailService = emailService;
+	}
+
 	@Bean
 	public ModelMapper modelMapper() {
 		return new ModelMapper();

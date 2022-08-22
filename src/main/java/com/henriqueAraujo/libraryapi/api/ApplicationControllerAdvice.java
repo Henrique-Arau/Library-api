@@ -2,7 +2,7 @@ package com.henriqueAraujo.libraryapi.api;
 
 
 import com.henriqueAraujo.libraryapi.api.exception.ApiErrors;
-import com.henriqueAraujo.libraryapi.exception.BusinesException;
+import com.henriqueAraujo.libraryapi.exception.BusinessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -26,9 +26,9 @@ public class ApplicationControllerAdvice {
 
     }
 
-    @ExceptionHandler(BusinesException.class)
+    @ExceptionHandler(BusinessException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ApiErrors handleBusinessException(BusinesException ex) {
+    public ApiErrors handleBusinessException(BusinessException ex) {
         return new ApiErrors(ex);
     }
 

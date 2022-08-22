@@ -1,7 +1,7 @@
 package com.henriqueAraujo.libraryapi.service.impl;
 
 import com.henriqueAraujo.libraryapi.api.dto.LoanFilterDTO;
-import com.henriqueAraujo.libraryapi.exception.BusinesException;
+import com.henriqueAraujo.libraryapi.exception.BusinessException;
 import com.henriqueAraujo.libraryapi.model.entity.Book;
 import com.henriqueAraujo.libraryapi.model.entity.Loan;
 import com.henriqueAraujo.libraryapi.model.repository.LoanRepository;
@@ -23,7 +23,7 @@ public class LoanServiceImpl implements LoanService {
     @Override
     public Loan save(Loan loan) {
         if(repository.existsByBookAndNotReturned(loan.getBook()) ){
-           throw new BusinesException("Book already loaned");
+           throw new BusinessException("Book already loaned");
         }
         return repository.save(loan);
     }

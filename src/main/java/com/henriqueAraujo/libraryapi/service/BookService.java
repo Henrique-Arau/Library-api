@@ -1,5 +1,6 @@
 package com.henriqueAraujo.libraryapi.service;
 
+
 import com.henriqueAraujo.libraryapi.model.entity.Book;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,7 +17,7 @@ public interface BookService {
 
     Book update(Book book);
 
-    Page<Book> find(Book filter, Pageable pageRequest);
+    Page<Book> find( Book filter, Pageable pageRequest );
 
     Optional<Book> getBookByIsbn(String isbn);
 }

@@ -5,8 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.henriqueAraujo.libraryapi.api.dto.LoanDTO;
 import com.henriqueAraujo.libraryapi.api.dto.LoanFilterDTO;
 import com.henriqueAraujo.libraryapi.api.dto.ReturnedLoanDTO;
-import com.henriqueAraujo.libraryapi.apiResource.LoanController;
-import com.henriqueAraujo.libraryapi.exception.BusinesException;
+import com.henriqueAraujo.libraryapi.api.resource.LoanController;
+import com.henriqueAraujo.libraryapi.exception.BusinessException;
 import com.henriqueAraujo.libraryapi.model.entity.Book;
 import com.henriqueAraujo.libraryapi.model.entity.Loan;
 import com.henriqueAraujo.libraryapi.service.BookService;
@@ -120,7 +120,7 @@ public class LoanControleTest {
         BDDMockito.given( bookService.getBookByIsbn("123") ).willReturn(Optional.of(book) );
 
         BDDMockito.given( loanService.save(Mockito.any(Loan.class)) )
-                .willThrow(new BusinesException("Book already loaned"));
+                .willThrow(new BusinessException("Book already loaned"));
 
 
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders.post( LOAN_API )

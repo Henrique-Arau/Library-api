@@ -1,6 +1,6 @@
 package com.henriqueAraujo.libraryapi.service.impl;
 
-import com.henriqueAraujo.libraryapi.exception.BusinesException;
+import com.henriqueAraujo.libraryapi.exception.BusinessException;
 import com.henriqueAraujo.libraryapi.model.entity.Book;
 import com.henriqueAraujo.libraryapi.model.repository.BookRepository;
 import com.henriqueAraujo.libraryapi.service.BookService;
@@ -24,7 +24,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public Book save(Book book) {
         if( repository.existsByIsbn(book.getIsbn())) {
-            throw new BusinesException("Isbn já cadastrado.");
+            throw new BusinessException("Isbn já cadastrado.");
         }
         return  repository.save(book);
     }

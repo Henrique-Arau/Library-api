@@ -1,6 +1,6 @@
 package com.henriqueAraujo.libraryapi.service;
 
-import com.henriqueAraujo.libraryapi.exception.BusinesException;
+import com.henriqueAraujo.libraryapi.exception.BusinessException;
 import com.henriqueAraujo.libraryapi.model.entity.Book;
 import com.henriqueAraujo.libraryapi.model.repository.BookRepository;
 import com.henriqueAraujo.libraryapi.service.impl.BookServiceImpl;
@@ -82,7 +82,7 @@ public class BookServiceTest {
 
         //verificaçoes
         assertThat(exception)
-                .isInstanceOf(BusinesException.class)
+                .isInstanceOf(BusinessException.class)
                 .hasMessage("Isbn já cadastrado.");
 
         verify(repository, Mockito.never()).save(book);
