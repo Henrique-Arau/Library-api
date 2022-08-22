@@ -46,13 +46,19 @@ public class BookControllerTest {
 
     static String BOOK_API = "/api/books";
 
+
+
+
     @Autowired
     MockMvc mvc;
     @MockBean
-    BookService service;
+    private BookService service;
 
 
- @Test
+
+
+
+    @Test
  @DisplayName("Deve criar um livro com sucesso")
  public void createBookTest() throws Exception{
 
